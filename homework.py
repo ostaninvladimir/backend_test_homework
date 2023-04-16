@@ -30,6 +30,7 @@ class Training:
 
     M_IN_KM = 1000
     LEN_STEP = 0.65
+    HOUR_IN_MIN = 60
 
     def __init__(
         self,
@@ -84,7 +85,7 @@ class Running(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         cal_run = self.run_coeff_1 * self.get_mean_speed() - self.run_coeff_2
-        return cal_run * self.weight / self.M_IN_KM * self.duration * 60
+        return cal_run * self.weight / self.M_IN_KM * self.duration * self.HOUR_IN_MIN
 
 
 class SportsWalking(Training):
@@ -107,7 +108,7 @@ class SportsWalking(Training):
         cal_wlk_1 = self.walk_coeff_1 * self.weight
         cal_wlk_2 = self.get_mean_speed() ** self.walk_coeff_2 // self.height
         cal_wlk_3 = cal_wlk_1 + cal_wlk_2 * self.walk_coeff_3 * self.weight
-        return cal_wlk_3 * self.duration * 60
+        return cal_wlk_3 * self.duration * self.HOUR_IN_MIN
 
 
 class Swimming(Training):
@@ -147,7 +148,7 @@ def read_package(workout_type: str, data: list) -> Training:
         "SWM": Swimming,
         "RUN": Running,
         "WLK": SportsWalking,
-    }
+    }image.png
     return workout[workout_type](*data)
 
 
