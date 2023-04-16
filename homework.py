@@ -94,6 +94,7 @@ class SportsWalking(Training):
     M_IN_KM = 1000
     LEN_STEP = 0.65
     KM_IN_MS = 0.278
+    SM_IN_M = 100
     walk_coeff_1 = 0.035
     walk_coeff_2 = 2
     walk_coeff_3 = 0.029
@@ -106,11 +107,13 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        cal_wlk_1 = self.walk_coeff_1 * self.weight
-        cal_wlk_2 = ((self.get_mean_speed() * self.KM_IN_MS)
-                     ** self.walk_coeff_2 // self.height)
-        cal_wlk_3 = cal_wlk_1 + cal_wlk_2 * self.walk_coeff_3 * self.weight
-        return cal_wlk_3 * self.duration * self.H_IN_MIN
+        cal_wlk = (
+            self.walk_coeff_1
+            * self.weight
+            + ((self.get_mean_speed() * self.KM_IN_MS)**2
+            / (self.height / self.SM_IN_M) * self.walk_coeff_3 * self.weight)
+            * (self.duration * self.H_IN_MIN))
+        return cal_wlk
 
 
 class Swimming(Training):
