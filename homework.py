@@ -148,7 +148,7 @@ def read_package(workout_type: str, data: list) -> Training:
         "SWM": Swimming,
         "RUN": Running,
         "WLK": SportsWalking,
-    }image.png
+    }
     return workout[workout_type](*data)
 
 
