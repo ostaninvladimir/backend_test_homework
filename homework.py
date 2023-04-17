@@ -72,6 +72,7 @@ class Running(Training):
     LEN_STEP = 0.65
     run_coeff_1 = 18
     run_coeff_2 = 20
+    run_coeff_3 = 1.79
 
     def __init__(
         self,
@@ -83,7 +84,7 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        cal_run = self.run_coeff_1 * self.get_mean_speed() - self.run_coeff_2
+        cal_run = self.run_coeff_1 * self.get_mean_speed() + self.run_coeff_3
         return (cal_run * self.weight / self.M_IN_KM
                 * self.duration * self.H_IN_MIN)
 
